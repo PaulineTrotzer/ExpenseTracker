@@ -1,5 +1,7 @@
 import { useState } from "react";
-import styles from "./ListGroup.module.css";
+import styles from "./ListGroup.css";
+import { styled } from "styled-components";
+import { BsCalendar2CheckFill } from "react-icons/bs";
 
 interface Props {
   items: string[];
@@ -13,8 +15,9 @@ function ListGroup({ items, heading, onSelectItem }: Props) {
   return (
     <>
       <h1>{heading}</h1>
+      <BsCalendar2CheckFill color="red"></BsCalendar2CheckFill>
       {items.length === 0 && <p>No item found</p>}
-      <ul className={[styles.listGroup, styles.container].join("")}>
+      <ul>
         {items.map((item, index) => (
           <li
             className={
