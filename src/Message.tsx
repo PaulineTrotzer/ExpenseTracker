@@ -1,11 +1,12 @@
+let count = 0;
 
 // PascalCasing
-function Message(){
-    //JSX: JavaScript XML
-    const name = 'Pauli';
-    if (name)
-    return <h1>Hello {name}</h1>;
-    return <h1>Hello World</h1>;
-}
+const Message = () => {
+  console.log("message called", count);
+
+  count++;
+  //JSX: JavaScript XML
+  return <div>Message {count}</div>;
+};
 
 export default Message;

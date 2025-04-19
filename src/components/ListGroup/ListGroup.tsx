@@ -1,6 +1,5 @@
 import { useState } from "react";
 import styles from "./ListGroup.css";
-import { styled } from "styled-components";
 import { BsCalendar2CheckFill } from "react-icons/bs";
 
 interface Props {
