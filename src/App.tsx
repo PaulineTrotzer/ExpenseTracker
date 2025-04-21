@@ -1,23 +1,35 @@
 import React, { useState } from "react";
 import ExpandableText from "./components/ExpandableText";
+import Form from "./components/Form";
+import ExpanseForm from "./components/ExpanseForm";
+import ExpenseList from "./expanse-tracker/components/ExpenseList";
+import ExpenseFilter from "./expanse-tracker/components/ExpenseFilter";
 
 const App = () => {
-  const [showText, setTextVisibility] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [expenses, setExpenses] = useState([
+    { id: 1, description: "aaa", amount: 10, category: "Utilities" },
+    { id: 2, description: "bbb", amount: 10, category: "Utilities" },
+    { id: 3, description: "ccc", amount: 10, category: "Utilities" },
+    { id: 4, description: "ddd", amount: 10, category: "Utilities" },
+    { id: 5, description: "eee", amount: 10, category: "Utilities" },
+  ]);
+
+  const visibleExpenses = selectedCategory // ausgewählte Kategorie ist nicht leer → filtere
+    ? expenses.filter((e) => e.category === selectedCategory)
+    : expenses; // keine Kategorie gewählt → zeige alle an
+
   return (
     <div>
-      <ExpandableText maxChars={10}>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit
-        voluptatibus vero quae pariatur eos cupiditate fugiat temporibus, illum
-        deleniti? Voluptatibus adipisci ratione repellat quam magni eos quis
-        porro. Beatae totam, quos harum alias perspiciatis repudiandae ducimus
-        illo dolore, qui mollitia in labore ab quae at sequi repellendus minus
-        saepe natus iste. Consequuntur debitis odio fugiat voluptatum ad! Natus
-        obcaecati explicabo fuga autem omnis repellendus dolorum, illum dolores
-        atque commodi officiis laudantium! Totam, suscipit dolore! Dicta tempora
-        nesciunt quo voluptate saepe harum delectus necessitatibus omnis
-        consequuntur ut repellendus aliquam explicabo rerum ipsa, esse at, sunt
-        error. Vel ipsum quis laboriosam aliquam.
-      </ExpandableText>
+      <div className="mb-3">
+        <ExpenseFilter
+          onSelectCategory={(category) => setSelectedCategory(category)}
+        ></ExpenseFilter>
+      </div>
+      <ExpenseList
+        expenses={visibleExpenses}
+        onDelete={(id) => setExpenses(expenses.filter((e) => e.id !== id))}
+      ></ExpenseList>
     </div>
   );
 };
