@@ -2,6 +2,7 @@ import React from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { categories } from "../App";
 
 const schema = z.object({
   description: z
@@ -58,23 +59,21 @@ const ExpanseForm = () => {
       </div>
 
       <div className="mb-3">
-        <label htmlFor="category" className="form-label"></label>
-        <p>Category</p>
-        <input
-          {...register("category")}
-          list="categories"
-          id="category"
-          className="form-control"
-        />
+        <label htmlFor="category" className="form-label">
+          Category
+        </label>
+        <select {...register("category")} id="category" className="form-select">
+          <option value="">Select a category</option>
+          {categories.map((category) => (
+            <option key={category} value={category}>
+              {category}
+            </option>
+          ))}
+        </select>
         {errors.category && (
           <p className="text-danger">{errors.category.message}</p>
         )}
       </div>
-      <datalist id="categories">
-        <option value="Groceries"></option>
-        <option value="Utilities"></option>
-        <option value="Entertainment"></option>
-      </datalist>
 
       <button disabled={!isValid} type="submit" className="btn btn-primary">
         Submit
